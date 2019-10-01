@@ -1,0 +1,82 @@
+//DESTRUCTURING 
+let arr = [1,2,3]
+
+let [uno,dos,tres] = arr
+let [uno] = arr
+let [uno,,tres] = arr
+
+// REST/SPREAD (...)
+let [ uno , ...elResto ] = arr
+
+
+let uno = arr[0]
+let dos = arr[1]
+let tres = arr[2]
+
+
+
+let obj = {x:1,y:2,z:3}
+let {x:x,y:horacio,z:pepe} = obj
+let {x:x,y:y,z:z} = obj
+
+//OBJECT SHORTHAND : Si el nombre de una propiedad es igual a la variable que tiene que guardar, se escribe una sola vez
+let {x,y,z} = obj
+
+
+let x = obj.x
+let y = obj.y
+let z = obj.z
+
+let obj = {x:1,y:2}
+
+function foo(...param){
+    console.log(param)
+}
+
+foo(obj)
+
+
+
+
+El modulo FS usualmente viene en tres formatos : 
+
+- Sincrónico : NO SE USA NUNCA!!!
+- Asincrónica : default. Sigue el patrón de cualquier función asincrónica de Node : 
+
+    fn(...params,callback(error,respuesta)=>{})
+
+*callbackify/promisify
+
+- Streams 
+
+
+https://docs.emmet.io/cheat-sheet/
+
+EXPRESS : Es un framework backend para Node.js 
+
+npm init -y 
+npm {i|install} {-S|--save} express
+
+
+
+Servidor.METHOD(path String,callback Function)
+Servidor.METHOD(path String,[fn(),fn(),fn()])
+Servidor.METHOD(path String,fn(),fn(),fn())
+Servidor.METHOD(path String,fn(),[fn(),fn(),fn()])
+etc... 
+Lo importante siempre en cualquier ruta es : 
+
+1 - La respuesta siempre tiene que terminar 
+2 - Si hay multiples callbacks, tengo que ejecutar un .next() ; de donde sale que todos los callbacks pueden aceptar tres parámetros : Request , Response , next
+
+
+
+
+https://www.npmjs.com/package/nodemon
+
+
+
+Error root/administrator : Volver a probar + volver a probar 
+
+
+local : Descargar el recurso en la carpeta node_modules
