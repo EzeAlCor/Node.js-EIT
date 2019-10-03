@@ -1,0 +1,91 @@
+MongoDB : NoSQL - No tiene soporte para arquitecturas de 32 bit
+
+https://www.mongodb.com/download-center
+
+C:/Program Files/MongoDB/Server/3.6/bin/*
+
+Ejecutables : 
+
+    mongod(daemon) - Levanta una instancia de un servidor(ReplSet,ConfigSvr). Por defecto la data se va a guardar en $ROOT/data/db
+
+    --port : El puerto del daemon (27017)
+    --dbpath : Ruta de almacenamiento de la DB(Directorio)
+    --logpath : Ruta de almacenamiento de los logs(Archivo)
+    --logappend : No lleva valor. Le especifica a mongod que no pise el archivo sino que siga escribiendo en el mismo 
+
+
+    mongos(routers) - Levanta una instancia de un router
+    mongo(cliente) - Es el que se conecta a un daemon o router
+    mongoexport : Exporta data en JSON,CVS,etc
+    mongoimport : Importa data exportada de mongoexport
+    mongodump : Exporta data en BSON
+    mongorestore : Importa data de un mongodump
+
+
+BSON : Binary JSON {}
+Todos los BSON tienen un _id y por defecto es del tipo ObejctID(). Lo que si se puede es customizarlo pasandole una propieda _id al documento para insertar. 
+
+
+DER Diagrama Entidad Relacion 
+
+
+Agregar MongoDB como variable de entorno : Esto sirve para tener el ejecutable en cualquier lado y correrlo como comando global :
+
+- Tecla de Windows
+- Escribir "entorno"
+- Darle enter
+- Click en el boton variables de entorno
+- En la seccion de arriba elegir la variable Path
+- Click en el boton editar
+- Click en el boton Nuevo
+- Copiar y pegar el directorio donde estan los ejecutables de mongo "C:\Program Files\MongoDB\Server\3.6\bin"
+- Aceptar todas las ventanas
+
+
+
+- show dbs : Muestra las bases de datos
+
+- use <db> : Nos mueve a una base de datos llamada <db>. Si no existe la crea en ese momento. No hay comando de creacion de base de datos
+
+- db : Nos muesta en que base de datos estamos actualmente
+
+- db.createCollection("<collection>" [,options] ) : Crear una nueva coleccion. Sirve especificamente si queremos crear capped collections.
+
+options :
+    capped : Boolean - Determina si es capped o no 
+    size : Number - Cantidad de bytes total que puede almacenar la coleccion
+    max : Number - Cantidad maxima de documentos que puede almacenar la coleccion 
+
+-------------------------------------------------------
+Capped Collection : Son colecciones que tienen limites de almacenamiento, tanto de tamaño total de coleccion como cantidad de documentos que pueden almacenar. Usan el sistema FIFO. 
+-------------------------------------------------------
+
+db.<collection>.insert(Document) : Guarda un nuevo documento en <collection>
+
+db.collection.find() : Muestra todos los documentos
+    SELECT * FROM COLLECTION
+
+db.collection.find().pretty() : Muestra los documentos formateados
+
+db.collection.find(Document) : Realiza un filtro por comparación a igualdad 
+
+db.collection.find({x:1})
+    SELECT * FROM COLLECTION WHERE x = 1
+     
+db.collection.find({x:1,y:2})
+        SELECT * FROM COLLECTION WHERE x = 1 AND y = 2
+
+db.coleccion.update(<query>,<update> [, config]) : Por defecto reemplaza con <update> el documento que encuentre en <query>
+    query : Document
+    update : Document
+
+    db.coleccion.update({ id : 1 }, { $set : { x : 1 } } )
+    UPDATE COLLECTION SET x = 1 WHERE id = 1 
+
+    db.coleccion.update(<query>,<update>, { multi : true , upsert : true } )
+
+db.dropDatabase() 
+
+
+
+https://docs.mongodb.com/manual/aggregation/
