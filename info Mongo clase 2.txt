@@ -1,0 +1,65 @@
+Bases de datos de ejemplo : 
+
+https://github.com/SouthbankSoftware/dbkoda-data
+
+
+Cuando restauren datos les pueden venir en dos formas : 
+
+- bson/comprimido* : mongorestore
+- json/cvs/etc : mongoimport
+
+Estructura de directorios : 
+
+
+root/
+    |_dump/
+        |_ <db>[,<dbs>]
+            |_<collection>[,<collections>]
+
+REFERENCIA 
+
+root : irrelevante - probablemente sea el nombre de la carpeta que descargamos
+dump : siempre esta y se llama asi 
+<db> : es el nombre que va a tomar la base por defecto cuando importemos las cosas 
+<collection> : es el nombre que va a tomar cada collection por defecto cuando importemos las cosas
+
+https://docs.mongodb.com/manual/reference/program/mongorestore/
+
+
+mongorestore <path> [flags]: 
+
+    --gzip : le dice al comando si lo que hay que restaurar está comprimido 
+
+
+1) Descomprimi todo en el escritorio
+2) Agregue los ejecutables como variables de entorno
+    2.1) Tecla de windows
+    2.2) busco "entorno" y click en la primera opcion
+    2.3) Click en el boton "variables de entorno"
+    2.4) En la seccion superior, click en Path y click en editar
+    2.5) Click en el boton Nuevo y agregar "C:\Program Files\MongoDB\Server\3.6\bin"
+    2.6) cerre todos los cmds que tenia abiertos
+3) Volvi a abrir dos cmd : en uno ejecute mongod
+4) En el segundo cmd me movi hasta donde esta la carpeta que Descomprimi
+
+> cd Desktop
+> cd dbkoda-data-master
+> mongorestore SampleCollections/dump
+> mongo
+> use SampleCollections
+> db.samples_pokemon.find().count() 
+> db.samples_pokemon.find().pretty()
+> db.samples_pokemon.find({},{_id:0,name:1,id:1})
+
+
+var pokemones = db.samples_pokemon.find({},{_id:0,name:1,id:1})
+
+//Un comando find siempre nos da un Cursor, lo cual es un puntero movil a documentos en una collection. El mismo nos da siempre objetos BSON y no JSON , lo cual optimiza nuestras consultas al 1) no traernos todos los documentos de la collection y 2) no tener que transformar BSON a JSON, lo cual pesa mas
+
+Cursor.hasNext() => Boolean
+Cursor.next() => Proximo Documento
+Cursor.toArray() => Array Transforma todos los documentos de la collection en JSON
+
+Los Cursores tienen un tiempo de vida util de por defecto 10 minutos, despues de eso se agotan y se pierde la referencia salvo que se lo indiquemos manualmente
+
+
