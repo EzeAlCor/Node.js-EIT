@@ -1,0 +1,36 @@
+https://github.com/SouthbankSoftware/dbkoda-data
+
+
+HABILITAR MONGODB EN NODE
+
+1) instalar el driver de MongoDB 
+    > npm i mongodb
+
+2) Traer el modulo al archivo servidor 
+    const mongodb = require("mongodb")
+
+3) Sacar MongoClient del modulo de mongodb (opcional)
+    let {MongoClient} = mongodb
+
+4) Hacer la conexión 
+    MongoClient.connect(url String [,options Object,callback Function])
+
+    MongoClient.connect("mongodb://localhost:27017/midb")
+
+5) Conectarse a una base de datos (sería analogo a hacer un "use <db>")
+    
+    cliente.db(nombre String) => Db 
+
+
+
+HABILITAR DIRECTORIO PUBLICO EN EXPRESS : Es un directorio que puede ser consumido desde el front end - El backend puede acceder a cualquier cosa, porque es el servidor, pero para que un cliente no pueda acceder a cualquier archivo del server, express tiene que habilitar un directorio especial para guardar cualquier recurso (imagenes, css, js, etc)
+
+
+
+--------------------------------------------------------
+* Asegurense que ambos dos servidores corran, entonces ejecuten el listen adentro del connect o viceversa
+--------------------------------------------------------
+
+https://www.npmjs.com/package/mongodb
+http://mongodb.github.io/node-mongodb-native/3.1/api/
+https://docs.mongodb.com/manual/core/authorization/
